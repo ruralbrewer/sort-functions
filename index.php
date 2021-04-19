@@ -10,7 +10,7 @@ require './vendor/autoload.php';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Union Find - Kruskal</title>
+    <title>Sorting Functions</title>
     <link rel="stylesheet" type="text/css" href="main.css?v=<?= time() ?>">
     <script type="application/javascript">
         function init() {
@@ -48,6 +48,9 @@ require './vendor/autoload.php';
             case "bogo-sort":
                 $sorter = new BogoSort();
                 break;
+            case "radix-sort":
+                $sorter = new RadixSort();
+                break;
             default:
                 die("It takes all sorts ... ");
         }
@@ -62,6 +65,8 @@ require './vendor/autoload.php';
 
         $sortedArray = $sorter->sort($testArray);
 
+        $sortedArray;
+
         $executionTime = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
 
     ?>
@@ -74,6 +79,7 @@ require './vendor/autoload.php';
         <option value="insertion-sort" <?= ($sorerName == 'InsertionSort') ? 'selected' : '' ?>>InsertionSort</option>
         <option value="selection-sort" <?= ($sorerName == 'SelectionSort') ? 'selected' : '' ?>>SelectionSort</option>
         <option value="bogo-sort" <?= ($sorerName == 'BogoSort') ? 'selected' : '' ?>>Bogo Sort</option>
+        <option value="radix-sort" <?= ($sorerName == 'RadixSort') ? 'selected' : '' ?>>Radix Sort</option>
     </select>
     <br><br>
     <label for="array-size">Size of Array </label>
@@ -82,8 +88,8 @@ require './vendor/autoload.php';
     <button id="runner">Run Sort</button>
     <p><em>This sort took <?= $executionTime ?> seconds</em></p>
     <p><strong>Original Array : </strong></p>
-    <p><?= join(', ',$testArray ) ?></p>
+    <p><?= ($size < 100) ? join(', ',$testArray ) : join(', ', array_slice($testArray, 0,100)) . ' ...' ?></p>
     <p><strong>Sorted Array : </strong></p>
-    <p><?= join(', ',$sortedArray ) ?></p>
+    <p><?= join(', ', $sortedArray ) ?></p>
 </body>
 </html>
